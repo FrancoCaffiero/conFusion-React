@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Card, CardImg, CardImgOverlay, CardTitle } from "reactstrap";
-import DishDetail from "./DishdetailComponent";
 
 /*
 	The render() fns below contain JSX code
@@ -27,19 +26,6 @@ import DishDetail from "./DishdetailComponent";
 
 // User-define type built on React.Component
 class Menu extends Component {
-  constructor(props) {
-    super(props); // required
-
-    this.state = {
-      selectedDish: null,
-    };
-  }
-
-  // called when a displayed menu item is selected
-  onDishSelect(dish) {
-    this.setState({ selectedDish: dish });
-  }
-
   // displays all the menu items (dishes)
   render() {
     // JSX
@@ -47,7 +33,7 @@ class Menu extends Component {
     const menu = this.props.dishes.map((dish) => {
       return (
         <div key={dish.id} className="col-12 col-md-5 m-1">
-          <Card onClick={() => this.onDishSelect(dish)}>
+          <Card onClick={() => this.props.onClick(dish.id)}>
             <CardImg width="100%" src={dish.image} alt={dish.name} />
             <CardImgOverlay>
               <CardTitle>{dish.name}</CardTitle>
@@ -62,7 +48,6 @@ class Menu extends Component {
       // display all the items
       <div className="container">
         <div className="row">{menu}</div>
-        <DishDetail dish={this.state.selectedDish} />
       </div>
     );
   } // end render
