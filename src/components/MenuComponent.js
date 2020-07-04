@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Card, CardImg, CardImgOverlay, CardTitle } from "reactstrap";
 
 /*
@@ -22,35 +22,36 @@ import { Card, CardImg, CardImgOverlay, CardTitle } from "reactstrap";
 	-----
 	- do not end an {expr} used in a render() with a ';', it will display
 	- ctor not required if no globals or set values being created
-	*/
+*/
 
-// User-define type built on React.Component
-class Menu extends Component {
-  // displays all the menu items (dishes)
-  render() {
-    // JSX
-    // define layout of a 'dish' (menu item)
-    const menu = this.props.dishes.map((dish) => {
-      return (
-        <div key={dish.id} className="col-12 col-md-5 m-1">
-          <Card onClick={() => this.props.onClick(dish.id)}>
-            <CardImg width="100%" src={dish.image} alt={dish.name} />
-            <CardImgOverlay>
-              <CardTitle>{dish.name}</CardTitle>
-            </CardImgOverlay>
-          </Card>
-        </div>
-      );
-    });
+// Returns a layout for a single menu item (dish)
+function RenderMenuItem({ dish, onClick }) {
+  return (
+    <Card onClick={() => onClick(dish.id)}>
+      <CardImg width="100%" src={dish.image} alt={dish.name} />
+      <CardImgOverlay>
+        <CardTitle>{dish.name}</CardTitle>
+      </CardImgOverlay>
+    </Card>
+  );
+}
 
+// Returns all the menu items (dishes) on the menu
+const Menu = (props) => {
+  const menu = props.dishes.map((dish) => {
     return (
-      // JSX
-      // display all the items
-      <div className="container">
-        <div className="row">{menu}</div>
+      <div key={dish.id} className="col-12 col-md-5 m-1">
+        <RenderMenuItem dish={dish} onClick={props.onClick} />
       </div>
     );
-  } // end render
-} // end Menu
+  });
 
+  return (
+    // JSX
+    // Display the entire menu
+    <div className="container">
+      <div className="row">{menu}</div>
+    </div>
+  );
+};
 export default Menu; // make the component available to other code
