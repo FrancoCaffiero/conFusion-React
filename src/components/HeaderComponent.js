@@ -19,6 +19,7 @@ class Header extends Component {
     this.toggleNav = this.toggleNav.bind(this);
   }
 
+  // Changes the state of isNavOpen used for Showing and hidding the navbar button
   toggleNav() {
     this.setState({ isNavOpen: !this.state.isNavOpen });
   }

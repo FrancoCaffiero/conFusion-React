@@ -16,7 +16,7 @@ function RenderDish({ dish }) {
   );
 }
 
-// Render a layout dor a single comment
+// Render a layout for a single comment
 function RenderComment({ comment }) {
   // format a date string
   const dtFormatter = new Intl.DateTimeFormat("en-US", {
