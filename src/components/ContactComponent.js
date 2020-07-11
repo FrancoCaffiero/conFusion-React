@@ -8,7 +8,7 @@ import {
   Row,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Control, Form, Errors, actions } from "react-redux-form";
+import { Control, Form, Errors } from "react-redux-form";
 
 // Form validations functions (validators)
 const required = (val) => val && val.length;
@@ -26,8 +26,24 @@ class Contact extends Component {
   }
 
   handleSubmit(values) {
-    console.log("State: " + JSON.stringify(values));
-    alert("Feedback has been submited");
+    const {
+      firstname,
+      lastname,
+      telnum,
+      email,
+      agree,
+      contactType,
+      message,
+    } = values;
+    this.props.postFeedback(
+      firstname,
+      lastname,
+      telnum,
+      email,
+      agree,
+      contactType,
+      message
+    );
     this.props.resetFeedbackForm(); // Resets the feedback form state
   }
 

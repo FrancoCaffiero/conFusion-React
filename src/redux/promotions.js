@@ -19,7 +19,7 @@ export const Promotions = (
         ...state,
         isLoading: true,
         errMess: null,
-        dishes: [],
+        promotions: [],
       };
     case ActionTypes.PROMOS_FAILED:
       return {
