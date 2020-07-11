@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 // Form validations functions (validators)
 const required = (val) => val && val.length;
@@ -129,13 +130,18 @@ class CommentForm extends React.Component {
 function RenderDish({ dish }) {
   return (
     <div className="col-12 col-md-5 m-1">
-      <Card>
-        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-        <CardBody>
-          <CardTitle>{dish.name}</CardTitle>
-          <CardText>{dish.description}</CardText>
-        </CardBody>
-      </Card>
+      <FadeTransform
+        in
+        transformProps={{ exitTransform: "scale(0.5) translateY(-50%)" }}
+      >
+        <Card>
+          <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+          <CardBody>
+            <CardTitle>{dish.name}</CardTitle>
+            <CardText>{dish.description}</CardText>
+          </CardBody>
+        </Card>
+      </FadeTransform>
     </div>
   );
 }
@@ -169,11 +175,15 @@ function RenderComments({ comments, postComment, dishId }) {
       <div className="col-12 col-md-5 m-1">
         <h4>Comments</h4>
         <ul className="list-unstyled">
-          {comments.map((comment) => (
-            <li key={comment.id}>
-              <RenderComment comment={comment} />
-            </li>
-          ))}
+          <Stagger in>
+            {comments.map((comment) => (
+              <Fade in>
+                <li key={comment.id}>
+                  <RenderComment comment={comment} />
+                </li>
+              </Fade>
+            ))}
+          </Stagger>
         </ul>
         <CommentForm dishId={dishId} postComment={postComment} />
       </div>
